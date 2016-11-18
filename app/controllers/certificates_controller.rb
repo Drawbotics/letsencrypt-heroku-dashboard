@@ -2,6 +2,12 @@ class CertificatesController < ApplicationController
   include Assignable
 
   assign :certificate
+
+  def show
+    raw_certificate = Certificate.find(params[:id])
+    @certificate = raw_certificate.status_path ? update_certificate(raw_certificate) : raw_certificate
+  end
+
   def new
     @certificate = Certificate.new
   end
@@ -15,21 +21,22 @@ class CertificatesController < ApplicationController
       certificate_params[:app_name]
     )
 
-    if response.code != "200"
+    if response.code != '200'
       flash[:error] = "Request to API failed"
       render :new
     end
 
     response_body = JSON.parse(response.body)
 
+
     certificate = Certificate.new(certificate_params)
-    certificate.status_path = response_body["status_path"]
+    certificate.status_path = response_body['status_path']
     certificate.identifier = /certificate_generation\/(.*)/.match(certificate.status_path)[1]
 
 
     if certificate.save
-      flash[:success] = "Certificate saved!"
-      redirect_to certificates_path
+      flash[:success] = 'Certificate saved!'
+      redirect_to certificate_path(certificate)
     else
       flash.now[:error] = certificate.errors.full_messages.to_sentence
       render 'new'
@@ -43,25 +50,37 @@ class CertificatesController < ApplicationController
 
   private
 
+  AUTH_TOKEN = ENV['AUTH_TOKEN']
+  API_PATH = ENV['API_PATH']
+
   def certificate_params
     params.require(:certificate).permit(:domain, :subdomains, :app_name, :debug)
   end
 
+  def update_certificate(certificate)
+    raw_uri = "#{API_PATH}/certificate_generation/#{certificate.identifier}?auth_token=#{AUTH_TOKEN}"
+    response = send_request(raw_uri)
+    if response.code == '200'
+      response_body = JSON.parse(response.body)
+      certificate.status = response_body['status']
+      certificate.status_errors = response_body['error']
+      certificate.message = response_body['message']
+      certificate.tap(&:save)
+    end
+    certificate
+  end
+
   def send_api_call(domain, subdomains, debug, app_name)
+    raw_uri = "#{API_PATH}/certificate_generation/new/#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{AUTH_TOKEN}&app_name=#{app_name}"
+    send_request(raw_uri)
+  end
 
-    # Set the ENV variables
-    auth_token = ENV['AUTH_TOKEN']
-    api_path = ENV['API_PATH']
-
-    # Prepare the request
-    uri = URI.parse(api_path +"#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{auth_token}&app_name=#{app_name}")
+  def send_request(raw_uri)
+    uri = URI.parse(raw_uri)
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Get.new(uri.request_uri)
-    request.initialize_http_header({"User-Agent" => "My Ruby Script"})
-
-    # Call the API
     http.request(request)
-
   end
+
 
 end

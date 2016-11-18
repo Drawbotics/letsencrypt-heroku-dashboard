@@ -1,10 +1,4 @@
 ul
   - certificates.each do |certificate|
     li
-      ul
-        li = certificate.identifier
-        li = certificate.domain
-        li = certificate.subdomains
-        li = certificate.app_name
-        li = certificate.debug
-        li = certificate.status
+      = render 'certificates/certificate', certificate: certificate
