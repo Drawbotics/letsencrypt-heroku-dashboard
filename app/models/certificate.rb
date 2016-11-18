@@ -1,0 +1,3 @@
+class Certificate < ApplicationRecord
+  
+end
