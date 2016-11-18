@@ -1,1 +1,22 @@
-= render 'certificates/certificate', certificate: certificate
+h1 Let's Encrypt + Heroku = ♥
+
+.row
+  .column  
+    table
+      thead
+        tr
+          /th identifier
+          th domain
+          th subdomains
+          th app_name
+          th debug
+          th message
+          th status
+          th status_errors
+          /th status_path
+      tbody    
+        tr
+          = render 'certificates/certificate', certificate: certificate
+            
+    .float-right
+      = link_to 'New certificate', new_certificate_path, class: 'button'

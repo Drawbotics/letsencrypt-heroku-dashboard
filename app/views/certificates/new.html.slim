@@ -1,10 +1,11 @@
-h1 Generate a new certificate
-
-= simple_form_for certificate do |f|
-  = f.input :domain
-  = f.input :subdomains
-  = f.input :app_name
-  = f.input :debug
-  = f.submit
-  
-  
+.row
+  .column.column-50.column-offset-25
+    h1 Generate a new certificate
+    = simple_form_for certificate do |f|
+      = f.input :domain
+      = f.input :subdomains
+      = f.input :app_name
+      = f.input :debug
+      = f.submit
+      
+      
