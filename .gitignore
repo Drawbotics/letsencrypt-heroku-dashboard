@@ -16,6 +16,9 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore database.yml conf file
+/config/database.yml
+
 
 # Created by https://www.gitignore.io/api/ruby,rubymine,rails,macos,node
 
