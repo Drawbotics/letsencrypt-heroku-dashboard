@@ -1,0 +1,10 @@
+h1 Generate a new certificate
+
+= simple_form_for certificate do |f|
+  = f.input :domain
+  = f.input :subdomains
+  = f.input :app_name
+  = f.input :debug
+  = f.submit
+  
+  
