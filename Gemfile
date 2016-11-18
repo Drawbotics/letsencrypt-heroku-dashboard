@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'slim-rails', '~> 3.1', '>= 3.1.1'
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 
 group :development, :test do
   gem 'byebug', platform: :mri

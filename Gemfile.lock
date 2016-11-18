@@ -43,6 +43,10 @@ GEM
     byebug (9.0.6)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
+    dotenv (2.1.1)
+    dotenv-rails (2.1.1)
+      dotenv (= 2.1.1)
+      railties (>= 4.0, < 5.1)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
@@ -152,6 +156,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  dotenv-rails (~> 2.1, >= 2.1.1)
   jbuilder (~> 2.5)
   listen (~> 3.0.5)
   pg (~> 0.18)
@@ -167,4 +172,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.1
+   1.13.6
