@@ -2,7 +2,9 @@
   .column.column-50.column-offset-25
     h1 
       ' Certificate
-      small = certificate.identifier
+      small.certificate-identifier = certificate.identifier
+      = link_to certificate_path(certificate) do
+        = inline_svg('refresh.svg', class: 'refresh-icon')
 
 .row
   .column  

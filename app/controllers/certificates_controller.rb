@@ -51,7 +51,10 @@ class CertificatesController < ApplicationController
 
   private
 
-  AUTH_TOKEN = ENV['AUTH_TOKEN']
+  def auth_token
+    current_user.auth_token
+  end
+
   API_PATH = ENV['API_PATH']
 
   def certificate_params
@@ -59,7 +62,7 @@ class CertificatesController < ApplicationController
   end
 
   def update_certificate(certificate)
-    raw_uri = "#{API_PATH}/certificate_generation/#{certificate.identifier}?auth_token=#{AUTH_TOKEN}"
+    raw_uri = "#{API_PATH}/certificate_generation/#{certificate.identifier}?auth_token=#{auth_token}"
     response = send_request(raw_uri)
     if response.code == '200'
       response_body = JSON.parse(response.body)
@@ -72,7 +75,7 @@ class CertificatesController < ApplicationController
   end
 
   def send_api_call(domain, subdomains, debug, app_name)
-    raw_uri = "#{API_PATH}/certificate_generation/new/#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{AUTH_TOKEN}&app_name=#{app_name}"
+    raw_uri = "#{API_PATH}/certificate_generation/new/#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{auth_token}&app_name=#{app_name}"
     send_request(raw_uri)
   end
 
