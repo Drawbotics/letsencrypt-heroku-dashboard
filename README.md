@@ -22,7 +22,7 @@ Thanks to [letsencrypt-heroku](https://github.com/substrakt/letsencrypt-heroku/)
 ### Certificate show
 ![Certificate](http://i.imgur.com/X87J7ol.png)
 
-## How to make it work ?
+## How it works ?
 
 1. Follow the instructions & deploy the API at [substrakt's repo letsencrypt-heroku](https://github.com/substrakt/letsencrypt-heroku/)
 2. Save the `auth_token`, you'll need it when you sign up to the dashboard
