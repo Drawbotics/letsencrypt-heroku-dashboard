@@ -1,0 +1,28 @@
+{
+  "name": "letsencrypt-heroku-dashboard",
+  "description": "An UI to generate your TLS certificates & make your Heroku apps secure.",
+  "keywords": [
+    "ssl",
+    "security",
+    "dashboard"
+  ],
+  "website": "https://drawbotics.com/",
+  "repository": "https://github.com/drawbotics/letsencrypt-heroku-dashboard",
+  "env": {
+    "API_PATH": {
+      "description": "The path to your letsencrypt-heroku API, finishing by '.herokuapp.com'."
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "Free"
+    }
+  },
+  "image": "heroku/ruby",
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
