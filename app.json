@@ -6,6 +6,9 @@
     "security",
     "dashboard"
   ],
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  },
   "website": "https://drawbotics.com/",
   "repository": "https://github.com/drawbotics/letsencrypt-heroku-dashboard",
   "env": {
