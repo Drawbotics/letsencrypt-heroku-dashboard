@@ -11,7 +11,6 @@
     table
       thead
         tr
-          /th identifier
           th domain
           th subdomains
           th app_name
@@ -19,7 +18,7 @@
           th message
           th status
           th status_errors
-          /th status_path
+          th
       tbody    
         tr
           = render 'certificates/certificate', certificate: certificate
