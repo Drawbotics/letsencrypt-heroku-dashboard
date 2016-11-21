@@ -1,5 +1,11 @@
 # letsencrypt-heroku-dashboard
 
+## Disclaimer
+
+This project is to use as-is, and should only be used if you understand what you're doing.
+
+## But, why ?
+
 We found a way to make the SSL certificate generation great again a few weeks ago, thanks to the awesome work by the substrakt team ([they blogged about it](https://substrakt.com/heroku-ssl-me-weve-come-a-long-way/)). 
 
 Thanks to [letsencrypt-heroku](https://github.com/substrakt/letsencrypt-heroku/), it's now easy as a `GET` to an API to
