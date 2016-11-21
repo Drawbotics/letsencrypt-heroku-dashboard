@@ -1,0 +1,12 @@
+.row
+  .column.column-50.column-offset-25
+    h2 Signup
+
+    = simple_form_for :user, url: '/users' do |f|
+
+      = f.input :name
+      = f.input :email
+      = f.input :password
+      = f.input :password_confirmation
+      / TODO: Add auth_token
+      = f.submit "Submit"

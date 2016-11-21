@@ -1,0 +1,16 @@
+header {
+  span {
+    margin: auto 5px;
+  }
+  .services {
+    display: inline-block;
+    .service-logo {
+      height: 50px;
+      width: 50px;
+      &.heroku, &.letsencrypt {
+        max-height: 40px;
+        vertical-align: top;
+      }
+    }
+  }
+}

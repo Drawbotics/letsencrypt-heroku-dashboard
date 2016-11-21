@@ -1,0 +1,22 @@
+.row
+  .column.column-50.column-offset-25
+    h2 Login
+
+
+    = simple_form_for :user, url: '/login' do |f|
+
+      = f.input :email
+      = f.input :password
+      = f.submit "Submit"
+
+
+    /= form_tag '/login' do
+
+      span 
+        ' Email:
+        = text_field_tag :email
+      span 
+        ' Password:
+        = password_field_tag :password
+      
+      = submit_tag "Submit"

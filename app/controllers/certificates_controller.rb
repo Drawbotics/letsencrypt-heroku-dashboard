@@ -1,6 +1,7 @@
 class CertificatesController < ApplicationController
-  include Assignable
+  before_filter :authorize
 
+  include Assignable
   assign :certificate
 
   def show
