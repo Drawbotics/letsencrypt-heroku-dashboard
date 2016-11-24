@@ -1,0 +1,6 @@
+.container
+  .row
+    .column.column-50.column-offset-25
+      - flash.each do |key, value|
+        .alert class="alert-#{key}"
+          = value
