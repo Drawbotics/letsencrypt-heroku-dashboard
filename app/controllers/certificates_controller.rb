@@ -27,6 +27,13 @@ class CertificatesController < ApplicationController
 
   def create
 
+    app_name = certificate_params[:app_name]
+
+    if certificate = user_cert_for_app(app_name)
+      flash[:error] = "You already have a certificate for this app."
+      redirect_to certificate_path(certificate) and return
+    end
+
     response = send_api_call(
       certificate_params[:domain],
       certificate_params[:subdomains],
@@ -40,12 +47,9 @@ class CertificatesController < ApplicationController
     end
 
     response_body = JSON.parse(response.body)
-
-
-    certificate = Certificate.new(certificate_params)
+    certificate = current_user.certificates.build(certificate_params)
     certificate.status_path = response_body['status_path']
     certificate.identifier = /certificate_generation\/(.*)/.match(certificate.status_path)[1]
-
 
     if certificate.save
       flash[:success] = 'Certificate saved!'
@@ -98,5 +102,12 @@ class CertificatesController < ApplicationController
     http.request(request)
   end
 
+  def user_has_cert_for_app?(app_name)
+
+  end
+
+  def user_cert_for_app(app_name)
+    current_user.certificates.find_by(app_name: app_name)
+  end
 
 end

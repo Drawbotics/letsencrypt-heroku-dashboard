@@ -1,0 +1,15 @@
+.alert {
+
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid;
+  text-align: center;
+
+  &.alert-error {
+    background: #E57373;
+    border-color: #B71C1C;
+    color: white;
+    font-weight: 500;
+  }
+
+}
