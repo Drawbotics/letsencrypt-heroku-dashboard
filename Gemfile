@@ -6,6 +6,7 @@ gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 2.5'
+gem 'httparty', '~> 0.14.0'
 
 gem 'slim-rails', '~> 3.1', '>= 3.1.1'
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
