@@ -9,9 +9,10 @@ class CertificatesController < ApplicationController
     @certificate = raw_certificate.status_path ? update_certificate(raw_certificate) : raw_certificate
   end
 
-  HEROKU_BASE_URL = "https://api.heroku.com".freeze
-  def new
 
+  def new
+    
+    HEROKU_BASE_URL = "https://api.heroku.com"
     headers = {
       "Accept": 'application/vnd.heroku+json; version=3',
       "Authorization": "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
