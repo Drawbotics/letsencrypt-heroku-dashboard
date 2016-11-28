@@ -10,9 +10,8 @@ class CertificatesController < ApplicationController
   end
 
 
+  HEROKU_BASE_URL = "https://api.heroku.com".freeze
   def new
-    
-    HEROKU_BASE_URL = "https://api.heroku.com"
     headers = {
       "Accept": 'application/vnd.heroku+json; version=3',
       "Authorization": "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
