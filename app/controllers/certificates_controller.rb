@@ -13,9 +13,9 @@ class CertificatesController < ApplicationController
   HEROKU_BASE_URL = "https://api.heroku.com".freeze
   def new
     headers = {
-      "Accept": 'application/vnd.heroku+json; version=3',
-      "Authorization": "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
-      "Content-Type": "application/json"
+      "Accept" => 'application/vnd.heroku+json; version=3',
+      "Authorization" => "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
+      "Content-Type" => "application/json"
     }
     query = { enabled: true }.to_json
 
