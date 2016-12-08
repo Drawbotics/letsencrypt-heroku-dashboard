@@ -9,19 +9,9 @@ class CertificatesController < ApplicationController
     @certificate = raw_certificate.status_path ? update_certificate(raw_certificate) : raw_certificate
   end
 
-
-  HEROKU_BASE_URL = "https://api.heroku.com".freeze
   def new
-    headers = {
-      "Accept" => 'application/vnd.heroku+json; version=3',
-      "Authorization" => "Bearer #{ENV['HEROKU_OAUTH_KEY']}",
-      "Content-Type" => "application/json"
-    }
-    query = { enabled: true }.to_json
-
-    response = HTTParty.get("#{HEROKU_BASE_URL}/apps", headers: headers, body: query)
+    response = GetHerokuApps.call
     @app_names = response.map{ |app| app['name'] }
-
     @certificate = Certificate.new
   end
 
