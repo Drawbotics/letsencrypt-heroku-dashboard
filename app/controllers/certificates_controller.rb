@@ -17,37 +17,22 @@ class CertificatesController < ApplicationController
 
   def create
 
-    app_name = certificate_params[:app_name]
+    app_name   = certificate_params[:app_name]
+    domain     = certificate_params[:domain]
+    subdomains = certificate_params[:subdomains]
+    debug      = certificate_params[:debug]
 
-    if certificate = user_cert_for_app(app_name)
-      flash[:error] = "You already have a certificate for this app."
-      redirect_to certificate_path(certificate) and return
-    end
+    service = CreateCertificates.call(current_user, app_name, domain, subdomains, debug)
 
-    response = send_api_call(
-      certificate_params[:domain],
-      certificate_params[:subdomains],
-      certificate_params[:debug] ? 1 : 0,
-      certificate_params[:app_name]
-    )
-
-    if response.code != '200'
-      flash[:error] = "Request to API failed"
-      render :new
-    end
-
-    response_body = JSON.parse(response.body)
-    certificate = current_user.certificates.build(certificate_params)
-    certificate.status_path = response_body['status_path']
-    certificate.identifier = /certificate_generation\/(.*)/.match(certificate.status_path)[1]
-
-    if certificate.save
-      flash[:success] = 'Certificate saved!'
-      redirect_to certificate_path(certificate)
+    if service.success?
+      flash[:success] = service.message
+      redirect_to service.certificate
     else
-      flash.now[:error] = certificate.errors.full_messages.to_sentence
-      render 'new'
+      flash[:error] = service.message
+      # If there a certificate already exist, then redirect to this one, otherwise a new one
+      redirect_to service.certificate ? service.certificate : new_certificate_path
     end
+
   end
 
   assign :certificates
@@ -57,19 +42,15 @@ class CertificatesController < ApplicationController
 
   private
 
-  def auth_token
-    current_user.auth_token
-  end
-
-  API_PATH = ENV['API_PATH']
-
   def certificate_params
     params.require(:certificate).permit(:domain, :subdomains, :app_name, :debug)
   end
 
+  API_PATH = ENV['API_PATH']
+
   def update_certificate(certificate)
     raw_uri = "#{API_PATH}/certificate_generation/#{certificate.identifier}?auth_token=#{auth_token}"
-    response = send_request(raw_uri)
+    response = SendRequest.new(raw_uri).call
     if response.code == '200'
       response_body = JSON.parse(response.body)
       certificate.status = response_body['status']
@@ -80,24 +61,5 @@ class CertificatesController < ApplicationController
     certificate
   end
 
-  def send_api_call(domain, subdomains, debug, app_name)
-    raw_uri = "#{API_PATH}/certificate_generation/new/#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{auth_token}&app_name=#{app_name}"
-    send_request(raw_uri)
-  end
-
-  def send_request(raw_uri)
-    uri = URI.parse(raw_uri)
-    http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.request_uri)
-    http.request(request)
-  end
-
-  def user_has_cert_for_app?(app_name)
-
-  end
-
-  def user_cert_for_app(app_name)
-    current_user.certificates.find_by(app_name: app_name)
-  end
 
 end
