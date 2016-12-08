@@ -1,13 +1,9 @@
-class GetCertificateStatus
+class GetCertificateStatus < ApplicationService
   attr_accessor :certificate
 
   def initialize(certificate, auth_token)
     @certificate = certificate
     @auth_token  = auth_token
-  end
-
-  def self.call(*params)
-    new(*params).call
   end
 
   API_PATH = ENV['API_PATH']

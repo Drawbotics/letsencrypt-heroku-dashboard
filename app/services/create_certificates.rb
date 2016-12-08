@@ -1,5 +1,5 @@
-class CreateCertificates
-  attr_accessor :success, :message, :certificate
+class CreateCertificates < ApplicationService
+  attr_accessor :certificate
 
   def initialize(user, app_name, domain, subdomains, debug)
     self.success = false
@@ -9,10 +9,6 @@ class CreateCertificates
     @domain     = domain ? 1 : 0
     @subdomains = subdomains
     @debug      = debug
-  end
-
-  def self.call(*params)
-    new(*params).call
   end
 
   def call
@@ -48,14 +44,6 @@ class CreateCertificates
       return self
     end
 
-  end
-
-  def success?
-    success
-  end
-
-  def failure?
-    !success?
   end
 
   private

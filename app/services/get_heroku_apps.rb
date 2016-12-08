@@ -1,4 +1,4 @@
-class GetHerokuApps
+class GetHerokuApps < ApplicationService
 
   HEROKU_BASE_URL = "https://api.heroku.com".freeze
 
@@ -9,10 +9,6 @@ class GetHerokuApps
       "Content-Type" => "application/json"
     }
     @query = { enabled: true }.to_json
-  end
-
-  def self.call
-    new().call
   end
 
   def call
