@@ -1,4 +1,5 @@
 class SendRequest
+
   def initialize(raw_uri)
     @raw_uri = raw_uri
   end
@@ -9,5 +10,5 @@ class SendRequest
     request = Net::HTTP::Get.new(uri.request_uri)
     http.request(request)
   end
-
+  
 end
