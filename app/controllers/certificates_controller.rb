@@ -47,7 +47,7 @@ class CertificatesController < ApplicationController
   end
 
   def update_certificate(certificate)
-    service = GetCertificateStatus.call(certificate, @user.auth_token)
+    service = GetCertificateStatus.call(certificate, current_user.auth_token)
     service.certificate
   end
 
