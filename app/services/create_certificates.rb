@@ -8,7 +8,7 @@ class CreateCertificates < ApplicationService
     @app_name   = app_name
     @domain     = domain
     @subdomains = subdomains
-    @debug      = debug ? 1 : 0
+    @debug      = debug == "1" ? 1 : 0
   end
 
   def call
