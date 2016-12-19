@@ -50,7 +50,7 @@ class CreateCertificates < ApplicationService
 
   API_PATH = ENV['API_PATH']
 
-  def send_api_call(domain, subdomains, debug, app_name)
+  def send_api_call(app_name, domain, subdomains, debug)
     raw_uri = "#{API_PATH}/certificate_generation/new/#{domain}?subdomains=#{subdomains}&debug=#{debug}&auth_token=#{auth_token}&app_name=#{app_name}"
     SendRequest.new(raw_uri).call
   end
