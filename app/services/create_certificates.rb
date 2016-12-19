@@ -6,9 +6,9 @@ class CreateCertificates < ApplicationService
 
     @user       = user
     @app_name   = app_name
-    @domain     = domain ? 1 : 0
+    @domain     = domain
     @subdomains = subdomains
-    @debug      = debug
+    @debug      = debug ? 1 : 0
   end
 
   def call
