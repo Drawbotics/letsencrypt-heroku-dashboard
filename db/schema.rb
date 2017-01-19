@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124160747) do
+ActiveRecord::Schema.define(version: 20170119105330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "certificates", force: :cascade do |t|
     t.string  "identifier"
-    t.string  "domain"
-    t.string  "subdomains"
+    t.string  "zone"
+    t.string  "domains"
     t.string  "app_name"
     t.boolean "debug"
     t.string  "status"

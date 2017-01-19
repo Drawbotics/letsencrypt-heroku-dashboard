@@ -1,13 +1,13 @@
 class CreateCertificates < ApplicationService
   attr_accessor :certificate
 
-  def initialize(user, app_name, domain, subdomains, debug)
+  def initialize(user, app_name, zone, domains, debug)
     self.success = false
 
     @user       = user
     @app_name   = app_name
-    @domain     = domain
-    @subdomains = subdomains
+    @zone     = zone
+    @domains = domains
     @debug      = debug == "1" ? 1 : 0
   end
 
@@ -20,7 +20,7 @@ class CreateCertificates < ApplicationService
       return self
     end
 
-    response = send_api_call(@app_name, @domain, @subdomains, @debug)
+    response = send_api_call(@app_name, @zone, @domains, @debug)
 
     if response.code != '200'
       self.message = "Request to API failed."
@@ -29,7 +29,7 @@ class CreateCertificates < ApplicationService
     end
 
     response_body = JSON.parse(response.body)
-    certificate = @user.certificates.build(user: @user, app_name: @app_name, domain: @domain, subdomains: @subdomains, debug: @debug)
+    certificate = @user.certificates.build(user: @user, app_name: @app_name, zone: @zone, domains: @domains, debug: @debug)
     certificate.status_path = response_body['url']
     certificate.identifier = response_body['uuid']
     if certificate.save
@@ -49,10 +49,10 @@ class CreateCertificates < ApplicationService
 
   API_PATH = ENV['API_PATH']
 
-  def send_api_call(app_name, domain, subdomains, debug)  
+  def send_api_call(app_name, zone, domains, debug)  
     params = {
-      zone: domain,
-      domains: subdomains,
+      zone: zone,
+      domains: domains,
       debug: debug,
       auth_token: auth_token,
       heroku_app_name: app_name,
