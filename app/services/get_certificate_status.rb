@@ -21,3 +21,4 @@ class GetCertificateStatus < ApplicationService
   end
 
 end
+	

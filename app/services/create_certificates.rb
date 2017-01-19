@@ -49,13 +49,17 @@ class CreateCertificates < ApplicationService
 
   API_PATH = ENV['API_PATH']
 
-  def send_api_call(app_name, domain, subdomains, debug)
+  def send_api_call(app_name, domain, subdomains, debug)  
     params = {
       zone: domain,
       domains: subdomains,
-      # debug: debug,
+      debug: debug,
       auth_token: auth_token,
-      heroku_app_name: app_name
+      heroku_app_name: app_name,
+      auth_token: ENV['AUTH_TOKEN'],
+      cloudflare_email: ENV['CLOUDFLARE_EMAIL'],
+      cloudflare_api_key: ENV['CLOUDFLARE_API_KEY'],
+      heroku_oauth_token: ENV['HEROKU_OAUTH_KEY']
     }
     raw_uri = "#{API_PATH}/certificate_request"
     Rails.logger.info "POST to #{raw_uri}"
