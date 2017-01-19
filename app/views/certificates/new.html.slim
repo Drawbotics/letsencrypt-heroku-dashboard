@@ -2,8 +2,8 @@
   .column.column-50.column-offset-25
     h1 Generate a new certificate
     = simple_form_for certificate do |f|
-      = f.input :domain
-      = f.input :subdomains
+      = f.input :zone
+      = f.input :domains
       = f.input :app_name, collection: @app_names
       = f.input :debug
       = f.submit

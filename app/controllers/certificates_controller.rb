@@ -18,11 +18,11 @@ class CertificatesController < ApplicationController
   def create
 
     app_name   = certificate_params[:app_name]
-    domain     = certificate_params[:domain]
-    subdomains = certificate_params[:subdomains]
+    zone     = certificate_params[:zone]
+    domains = certificate_params[:domains].split(", ").flat_map{ |l| l.split(",")}
     debug      = certificate_params[:debug]
 
-    service = CreateCertificates.call(current_user, app_name, domain, subdomains, debug)
+    service = CreateCertificates.call(current_user, app_name, zone, domains, debug)
 
     if service.success?
       flash[:success] = service.message
@@ -40,10 +40,21 @@ class CertificatesController < ApplicationController
     @certificates = Certificate.all.order(:id)
   end
 
+  def destroy
+    certificate = Certificate.find(params[:id])
+    if certificate.destroy!
+      flash[:success] = "Certificate destroyed"
+      redirect_to certificates_path
+    else
+      flash[:error] = "Certificate not destroyed"
+      redirect_to certificate_path(certificate)
+    end
+  end
+
   private
 
   def certificate_params
-    params.require(:certificate).permit(:domain, :subdomains, :app_name, :debug)
+    params.require(:certificate).permit(:zone, :domains, :app_name, :debug)
   end
 
   def update_certificate(certificate)
