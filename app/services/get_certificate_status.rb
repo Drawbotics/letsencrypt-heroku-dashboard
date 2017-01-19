@@ -8,17 +8,17 @@ class GetCertificateStatus < ApplicationService
 
   API_PATH = ENV['API_PATH']
   def call
-    raw_uri = "#{API_PATH}/certificate_generation/#{@certificate.identifier}?auth_token=#{@auth_token}"
-    response = SendRequest.new(raw_uri).call
-    if response.code == '200'
-      response_body = JSON.parse(response.body)
-      @certificate.status = response_body['status']
-      @certificate.status_errors = response_body['error']
-      @certificate.message = response_body['message']
-      @certificate.save
-    end
+    raw_uri = @certificate.status_path
+    response = SendRequest.new(raw_uri, "GET").call
+    response_body = JSON.parse(response)
+    @certificate.status = response_body['status']
+    @certificate.status_errors = response_body['error']
+    @certificate.message = response_body['message']
+    @certificate.save
+
     self.certificate = @certificate
     return self
   end
 
 end
+	
