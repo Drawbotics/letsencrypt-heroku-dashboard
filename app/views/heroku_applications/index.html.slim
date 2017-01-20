@@ -1,0 +1,50 @@
+.Grid.Grid--with-h-gutters.Grid--with-v-gutters
+  .Cell.Cell--1of1
+    h1.Title.Title--main
+      ' Your Heroku Applications
+  - @heroku_applications.each do |application|
+    .Cell.Cell--1of3
+      .Card
+        h3.Title 
+          = application[:name]
+          .float-right
+            - application[:buildpacks].each do |buildpack|
+              ' &nbsp;
+              i class="devicon-#{buildpack}-plain colored"
+        pre
+          .code
+            ' &nbsp;
+            = "id: #{application[:id]}"
+
+        / = link_to 'Generate', '/signup', class: 'button'
+
+        / "archived_at"=>nil, 
+          "buildpack_provided_description"=>"Ruby", 
+          "build_stack"=>{
+            "id"=>"7e04461d-ec81-4bdd-8b37-b69b320a9f83", 
+            "name"=>"cedar"
+          }, 
+          "created_at"=>"2014-02-03T19:43:19Z", 
+          "id"=>"d717b6a7-4af4-47d4-8b11-f11c1f6b16e2", 
+          "git_url"=>"https://git.heroku.com/betheinsider.git", 
+          "maintenance"=>true, 
+          "name"=>"betheinsider", 
+          "owner"=>{
+            "email"=>"stanislas@boyet.me", 
+            "id"=>"373d4e44-f691-4b95-9f08-ca3a98329abf"}, 
+          "region"=>{
+            "id"=>"ed30241c-ed8c-4bb6-9714-61953675d0b4", 
+            "name"=>"eu"
+            }, 
+          "organization"=>nil, 
+          "space"=>nil, 
+          "released_at"=>"2016-04-27T20:49:30Z", 
+          "repo_size"=>11890688, 
+          "slug_size"=>37011972, 
+          "stack"=>{
+            "id"=>"7e04461d-ec81-4bdd-8b37-b69b320a9f83", 
+            "name"=>"cedar"
+          }, 
+          "updated_at"=>"2016-04-27T20:49:30Z", 
+          "web_url"=>"https://betheinsider.herokuapp.com/"
+

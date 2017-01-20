@@ -17,7 +17,8 @@ class CreateCertificates < ApplicationService
       self.message = "You already have a certificate for this app."
       self.success = false
       self.certificate = certificate
-      return self
+      retur
+      n self
     end
 
     response = send_api_call(@app_name, @zone, @domains, @debug)

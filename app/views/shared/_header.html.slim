@@ -1,16 +1,12 @@
-header
-  .container
-    .row
-      .column
-        .services.float-left
-          = inline_svg 'heroku.svg', class: 'service-logo heroku'
-          = inline_svg 'letsencrypt.svg', class: 'service-logo letsencrypt'
-          = inline_svg 'cloudflare.svg', class: 'service-logo cloudflare'
-      .column
-        .float-right
-          - if current_user
-            span.logged-in = "Logged in as #{current_user.name}"
-            span.logout = link_to "Logout", '/logout', class: 'button button-small button-outline'
-          - else
-            span.login  = link_to 'Login', '/login', class: 'button button-small button-outline'
-            span.signup = link_to 'Signup', '/signup', class: 'button button-small button-outline'
+nav.Navbar
+  .Navbar__icon.services
+    = inline_svg 'heroku.svg', class: 'service-logo heroku'
+    = inline_svg 'letsencrypt.svg', class: 'service-logo letsencrypt'
+    = inline_svg 'cloudflare.svg', class: 'service-logo cloudflare'
+  .Navbar__controls.user-buttons
+    - if current_user
+      span.logged-in = "Logged in as #{current_user.name}"
+      span.logout = link_to "Logout", '/logout', class: 'button button-small button-outline'
+    - else
+      span.login  = link_to 'Login', '/login', class: 'button button-small button-outline'
+      span.signup = link_to 'Signup', '/signup', class: 'button button-small button-outline'

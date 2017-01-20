@@ -1,9 +1,7 @@
-header {
-  span {
-    margin: auto 5px;
-  }
+nav {
   .services {
     display: inline-block;
+    margin-top: -5px;
     .service-logo {
       height: 50px;
       width: 50px;
@@ -12,6 +10,9 @@ header {
         vertical-align: top;
       }
     }
+  }
+  .user-buttons span {
+    margin: auto 5px;
   }
 }
 
